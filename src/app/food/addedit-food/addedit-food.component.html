@@ -1,0 +1,43 @@
+
+<form id="addeditFood" #addeditFood="ngForm">
+
+    <div class="d-flex flex-row mb-3">
+        <div class="row mb-3" style="width: 60%;">
+            <label class="col-sm-2 col-form-label">
+                Tên món ăn
+            </label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" [(ngModel)]="tenMonAn" placeholder="Nhập tên món ăn"
+                name="nameFood" required #nameFood="ngModel">
+            </div>
+            <p class="text-danger fst-italic"
+                *ngIf="nameFood?.invalid && (nameFood?.dirty || nameFood?.touched)">
+                Tên món ăn không hợp lệ.</p>
+            <label class="col-sm-2 col-form-label">
+                Giá
+            </label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" [(ngModel)]="giaMonAn" placeholder="Nhập giá món ăn"
+                name="price" required #price="ngModel" min="0">
+            </div>
+            <p class="text-danger fst-italic"
+                *ngIf="price?.invalid && (price?.dirty || price?.touched)">
+                Giá món ăn không hợp lệ.</p>
+            <label class="col-sm-2 col-form-label">
+                Danh mục
+            </label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" [(ngModel)]="danhmuc" placeholder="Phải là chọn danh mục"
+                name="gia" required #gia="ngModel">
+            </div>
+        </div>
+
+        <div class="ml-3" style="width: 40%;">
+            <img [src]="pathHinhAnh" width="200px;" height="250px;">
+            <input type="file" (change)="uploadImage($event)" class="mt-2" />
+        </div>
+    </div>
+    <button (click)="addItem()" *ngIf="food.id==0" class="btn btn-primary">Thêm</button>
+
+    <button (click)="updateItem()" *ngIf="food.id!=0" class="btn btn-primary">Cập nhật</button>
+</form>

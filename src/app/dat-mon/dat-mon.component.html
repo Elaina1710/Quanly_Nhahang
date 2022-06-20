@@ -1,0 +1,56 @@
+<form id="datmonForm" #datmonForm="ngForm">
+    <h3 class="d-flex justify-content-center">Đặt món {{tenBan}}</h3>
+    <div class="d-flex flex-row mb-3">
+        <div class="row mt-3" style="width: 60%;">
+            <label class="fs-3 text-center fw-bold">Menu</label>
+            <div class="d-flex flex-row mb-3 mt-1">
+                <input name="filter" class="form form-control" style="width:fit-content; height:fit-content" 
+                (keyup)="Filter()" placeholder="Filter Name" [(ngModel)]="FilterName">
+            </div>
+            <div class="col-sm-4 mb-3" *ngFor="let item of listFoods">
+                <img [src]="pathHinhAnh[item.id]" width="200px;" height="250px;">
+                <div class="fw-bold">{{item.ten}}</div>
+                <div class="fst-italic">{{item.gia}} VND</div>
+                <div class="mt-1">
+                    <input name="count" #count="ngModel" class="col-sm-3" 
+                    type="number" min="0" max="99" [(ngModel)]="soluong[item.id]">
+                </div>
+                <button class="btn btn-secondary mt-1"
+                [disabled]="soluong[item.id]<=0||soluong[item.id]==null"
+                (click)="datmon(item)">Đặt món</button>
+            </div>
+        </div>
+
+        <div class="mt-3" style="width: 40%;">
+            <p class="fs-3 mx-auto fw-bold" style="width:fit-content">List Order</p>
+            <div class="mt-1">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 40%;">
+                                Tên món</th>
+                            <th class="text-end" style="width: 20%;">Số lượng</th>
+                            <th class="text-end" style="width: 20%;">Giá</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of listOrder">
+                            <td>{{item.ten}}</td>
+                            <td class="text-center">{{item.soluong}}</td>
+                            <td class="text-end">{{item.gia}}</td>
+                            <td>
+                                <button type="button" class="btn btn-danger mr-1" (click)="delete(item.ten)">Xóa
+                                </button>
+                            </td>
+                        </tr>
+                        <tr><p class="mt-3 fw-bold">Tổng tiền: {{tongtien}} VND</p></tr>
+                    </tbody>
+                </table>
+            </div>
+            <button type="button" class="btn btn-primary mt-1" style="width:60px"
+            [disabled]="listOrder.length==0" (click)="hoantat()">OK</button>
+            <button type="button" class="btn btn-secondary mt-1 ms-2" [routerLink]="'/table'">Hủy</button>
+        </div>
+    </div>
+</form>

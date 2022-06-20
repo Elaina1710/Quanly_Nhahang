@@ -1,0 +1,79 @@
+<h3 class="d-flex justify-content-center">Quản lý bàn</h3>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary mt-3" (click)="add()" data-bs-toggle="modal"
+    data-bs-target="#ModalAddEditBan">
+    Thêm bàn
+</button>
+<!-- Modal thêm sửa bàn -->
+<div class="modal fade" id="ModalAddEditBan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="ModalAddEditBanLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalAddEditBanLabel">{{ModalTitle}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="close()">
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-addedit-ban [ban]="table" *ngIf="Add_Edit">
+                </app-addedit-ban>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal xem hóa đơn-->
+<div class="modal fade" id="ModalXemHD" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="ModalXemHDLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalXemHDLabel">Xem Hóa đơn</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-xem-hoadon [Ban]="table">
+                </app-xem-hoadon>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 20%;">ID</th>
+            <th style="width: 20%;">Tên</th>
+            <th style="width: 25%;">Trạng thái</th>
+            <th style="width: 35%;">Option</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of listTables">
+            <td>{{item.id}}</td>
+            <td>{{item.ten}}</td>
+            <td *ngIf="!item.trangthai">Trống</td>
+            <td *ngIf="item.trangthai">Đã có người ngồi</td>
+            <td *ngIf="!item.trangthai">
+                <button type="button" class="btn btn-secondary me-1" (click)="navigate(item)">
+                    Đặt món
+                </button>
+                <button type="button" class="btn btn-secondary me-1" (click)="edit(item)" data-bs-toggle="modal"
+                    data-bs-target="#ModalAddEditBan">
+                    Cập nhật
+                </button>
+                <button type="button" class="btn btn-danger me-1" (click)="delete(item)">
+                    Xóa
+                </button>
+            </td>
+            <td *ngIf="item.trangthai">
+                <button type="button" class="btn btn-info me-1" (click)="xemhoadon(item)" data-bs-toggle="modal"
+                    data-bs-target="#ModalXemHD">
+                    Xem hóa đơn</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

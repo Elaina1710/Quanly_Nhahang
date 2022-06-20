@@ -1,0 +1,22 @@
+<form id="addeditBan" #addeditBan="ngForm">
+
+    <div class="d-flex flex-row bd-highlight mb-3">
+        <div class="form-froup row" style="width: 60%;">
+            <label class="col-sm-2 col-form-label">
+                Tên bàn
+            </label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" [(ngModel)]="tenBan" placeholder="Nhập tên bàn"
+                name="nameBan" required #nameBan="ngModel">
+            </div>
+            <p id="nameBanP" class="text-danger fst-italic"
+                *ngIf="nameBan?.invalid && (nameBan?.dirty || nameBan?.touched)">
+                Tên bàn không hợp lệ.</p>
+        </div>
+    </div>
+    <button (click)="addItem()" *ngIf="ban.id==0" class="btn btn-primary">Thêm</button>
+
+    <button (click)="updateItem()" *ngIf="ban.id!=0" class="btn btn-primary">Cập nhật</button>
+</form>
+
+
